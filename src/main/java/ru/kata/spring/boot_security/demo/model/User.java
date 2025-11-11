@@ -52,7 +52,6 @@ public class User implements UserDetails {
     @Size(min = 2, max = 50)
     private String email;
 
-
     @Column(name = "password", nullable = false)
     @NotBlank
     private String password;

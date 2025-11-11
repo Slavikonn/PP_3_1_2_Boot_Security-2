@@ -11,7 +11,6 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.AdminService;
 
 import java.util.List;
-import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
@@ -36,10 +35,8 @@ public class AdminController {
     }
 
     @PostMapping("/addUser")
-    public String addUser(@ModelAttribute User user,
-                          @RequestParam(name = "role",
-                                  defaultValue = "ROLE_USER") Set<String> roles) {
-        adminService.createUser(user, adminService.getRolesByName(roles));
+    public String addUser(@ModelAttribute User user) {
+        adminService.createUser(user);
         return "redirect:/admin";
     }
 
@@ -50,10 +47,8 @@ public class AdminController {
     }
 
     @PostMapping("/updateUser")
-    public String updateUser(@ModelAttribute User user,
-                             @RequestParam(name = "role",
-                                     defaultValue = "ROLE_USER") Set<String> roles) {
-        adminService.updateUser(user, adminService.getRolesByName(roles));
+    public String updateUser(@ModelAttribute User user) {
+        adminService.updateUser(user);
         return "redirect:/admin";
     }
 
