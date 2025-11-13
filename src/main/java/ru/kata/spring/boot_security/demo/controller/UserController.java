@@ -19,9 +19,9 @@ public class UserController {
     }
 
     @GetMapping
-    public String showUserForm(Principal principal, Model model) {
+    public String showUserPage(Principal principal, Model model) {
         User user = userService.findUserByUsername(principal.getName());
         model.addAttribute("user", user);
-        return "user-page";
+        return "pages/user-page";
     }
 }
