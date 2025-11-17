@@ -182,4 +182,12 @@ public class User implements UserDetails {
                 ", roles=" + roles +
                 '}';
     }
+
+    public void updateFrom(User source) {
+        this.username = source.username;
+        this.surname = source.surname;
+        this.email = source.email;
+        this.age = source.age;
+        this.roles = source.roles;
+    }
 }

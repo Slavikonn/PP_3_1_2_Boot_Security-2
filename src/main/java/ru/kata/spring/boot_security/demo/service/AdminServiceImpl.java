@@ -43,11 +43,7 @@ public class AdminServiceImpl implements AdminService {
     @Transactional
     public void updateUser(User user) {
         User existingUser = findById(user.getId());
-        existingUser.setUsername(user.getUsername());
-        existingUser.setSurname(user.getSurname());
-        existingUser.setAge(user.getAge());
-        existingUser.setEmail(user.getEmail());
-        existingUser.setRoles(user.getRoles());
+        existingUser.updateFrom(user);
 
         if (user.getPassword() != null && !user.getPassword().isBlank()) {
             existingUser.setPassword(passwordEncoder.encode(user.getPassword()));

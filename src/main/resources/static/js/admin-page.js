@@ -62,3 +62,43 @@ function loadNewUser() {
             });
     });
 }
+
+document.addEventListener("submit", function (event) {
+    const form = event.target;
+
+    if (form && form.id === "editUserForm") {
+        event.preventDefault();
+
+        const id = document.getElementById("edit-id-hidden").value;
+        const user = {
+            id: parseInt(id),
+            username: document.getElementById("edit-username").value,
+            surname: document.getElementById("edit-surname").value,
+            age: parseInt(document.getElementById("edit-age").value),
+            email: document.getElementById("edit-email").value,
+            password: document.getElementById("edit-password").value,
+            roles: Array.from(document.getElementById("edit-roles").selectedOptions).map(opt => opt.value)
+        };
+
+        fetch(`/api/admin/users`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Ошибка при обновлении пользователя");
+                return res.json();
+            })
+            .then(() => {
+                loadUsers();
+                const modal = bootstrap.Modal.getInstance(document.getElementById("editUserModal"));
+                modal.hide();
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Ошибка при обновлении пользователя");
+            });
+    }
+});
