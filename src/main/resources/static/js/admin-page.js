@@ -102,3 +102,29 @@ document.addEventListener("submit", function (event) {
             });
     }
 });
+
+document.addEventListener("submit", function (event) {
+    const form = event.target;
+
+    if (form && form.id === "deleteUserForm") {
+        event.preventDefault();
+
+        const id = document.getElementById("delete-id-hidden").value;
+        fetch(`/api/admin/users/${id}`, {
+            method: "DELETE",
+        })
+            .then(res => {
+                if (!res.ok) throw new Error("Ошибка при удалении пользователя");
+                res.json();
+            })
+            .then(() => {
+                loadUsers();
+                const modal = bootstrap.Modal.getInstance(document.getElementById("deleteUserModal"));
+                modal.hide();
+            })
+            .catch(err => {
+                console.error(err);
+                alert("Ошибка при удалении пользователя");
+            });
+    }
+});

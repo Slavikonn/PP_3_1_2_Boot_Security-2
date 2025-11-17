@@ -19,3 +19,19 @@ function openEditModal(id) {
             modal.show();
         });
 }
+
+function openDeleteModal(id) {
+    fetch(`/api/admin/users/${id}`)
+        .then(res => res.json())
+        .then(user => {
+            document.getElementById("delete-id-hidden").value = user.id;
+            document.getElementById("delete-id-disabled").value = user.id;
+            document.getElementById("delete-username").value = user.username;
+            document.getElementById("delete-surname").value = user.surname;
+            document.getElementById("delete-age").value = user.age;
+            document.getElementById("delete-email").value = user.email;
+
+            const modal = new bootstrap.Modal(document.getElementById("deleteUserModal"));
+            modal.show();
+        })
+}
